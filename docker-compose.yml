@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  leadforge-ai:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: leadforge-ai
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - PORT=3000
+      - NODE_ENV=production
+      - DB_PATH=/app/data/leadforge.db
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - leadforge_data:/app/data
+
+volumes:
+  leadforge_data:
+    driver: local
